@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { ID } from "node-appwrite";
 import { useEffect, useState } from "react";
+import Card from "@/components/card";
 
 export default function Home() {
   const router = useRouter();
@@ -15,8 +16,8 @@ export default function Home() {
     { id: "section4", label: "Servers" },
   ];
   useEffect(() => {
-    const scrollContainer = document.querySelector('.scroll-container');
-  
+    const scrollContainer = document.querySelector(".scroll-container");
+
     const handleScroll = () => {
       const scrollPosition = scrollContainer?.scrollTop || 0;
       const sectionHeight = window.innerHeight;
@@ -25,12 +26,12 @@ export default function Home() {
       setActiveIndex(index);
       //console.log("Scroll position:", scrollPosition, "Active index:", index);
     };
-  
+
     if (scrollContainer) {
       scrollContainer.addEventListener("scroll", handleScroll);
       //console.log("Event listener added to scroll-container");
     }
-  
+
     return () => {
       if (scrollContainer) {
         scrollContainer.removeEventListener("scroll", handleScroll);
@@ -49,7 +50,7 @@ export default function Home() {
   return (
     <div className="scroll-container snap-mandatory h-screen overflow-y-scroll">
       <div className="pagination">
-      {sections.map((section, index) => (
+        {sections.map((section, index) => (
           <div
             key={section.id}
             className={`dot ${index === activeIndex ? "active" : ""}`}
@@ -66,18 +67,14 @@ export default function Home() {
         </section>
       </section>
       <section className="w-screen h-[500px] mt-[20vh] center gap-[20px] px-24">
-        <button className="w-1/3 h-full hover:scale-[1.05] btn p-4 rounded-lg border center">
-          Servers
-        </button>
-        <button className="w-1/3 h-full hover:scale-[1.05] btn p-4 rounded-lg border center">
-          Files
-        </button>
-        <button
-          className="w-1/3 h-full hover:scale-[1.05] btn p-4 rounded-lg border center"
+        <Card className="w-1/3 h-full btn hover:scale-[1.05] text-[54px] font-bold center">Servers</Card>
+        <Card className="w-1/3 h-full btn hover:scale-[1.05] text-[54px] font-bold center">Files</Card>
+        <Card
+          className="w-1/3 h-full btn text-[54px] font-bold hover:scale-[1.05]  center"
           onClick={() => router.push("/store")}
         >
           Store
-        </button>
+        </Card>
       </section>
       <section
         id="section2"
