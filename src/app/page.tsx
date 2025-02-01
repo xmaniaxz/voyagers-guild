@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { ID } from "node-appwrite";
 import { useEffect, useState } from "react";
 import Card from "@/components/card";
+import Servers from "@/components/serverpage";
 
 export default function Home() {
   const router = useRouter();
@@ -49,6 +50,11 @@ export default function Home() {
 
   return (
     <div className="scroll-container snap-mandatory h-screen overflow-y-scroll">
+      {activeIndex != 0 && <i className="Icon absolute bg-[#353535] p-2 text-[32px] hover:scale-[1.2] hover:bg-[#4b4b4b] rounded-[50%] bottom-[40px] right-[40] btn"
+      onClick={() => scrollToSection(0)}
+      >
+        arrow_upward
+      </i>}
       <div className="pagination">
         {sections.map((section, index) => (
           <div
@@ -66,11 +72,15 @@ export default function Home() {
           <h1 className="text-3xl">VoyagersGuild</h1>
         </section>
       </section>
-      <section className="w-screen h-[500px] mt-[20vh] center gap-[20px] px-24">
-        <Card className="w-1/3 h-full btn hover:scale-[1.05] text-[54px] font-bold center">Servers</Card>
-        <Card className="w-1/3 h-full btn hover:scale-[1.05] text-[54px] font-bold center">Files</Card>
+      <section className="w-screen h-[500px] mt-[20vh] center gap-[10px] px-24">
+        <Card className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center" onClick={() =>{scrollToSection(3)}}>
+          Servers
+        </Card>
+        <Card className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center">
+          Files
+        </Card>
         <Card
-          className="w-1/3 h-full btn text-[54px] font-bold hover:scale-[1.05]  center"
+          className="w-1/3 h-full btn text-[54px] font-bold hover:scale-[1.1] hover:translate-y-[20px]  center"
           onClick={() => router.push("/store")}
         >
           Store
@@ -80,7 +90,7 @@ export default function Home() {
         id="section2"
         className="w-screen h-screen center px-24 mt-[25vh] snap-start"
       >
-        <div className="w-full h-96 text-white border p-4 rounded-lg">
+        <Card className="w-full h-96 text-white p-4 ">
           <h1 className="text-3xl">About</h1>
           <br />
           <p>
@@ -88,7 +98,7 @@ export default function Home() {
             playing games together. We have a variety of modded minecraft
             servers for different games and we're always looking to expand.
           </p>
-        </div>
+        </Card>
       </section>
       <section
         id="section3"
@@ -114,7 +124,7 @@ export default function Home() {
         id="section4"
         className="w-screen h-screen center px-24 mt-[25vh] snap-start"
       >
-        Servers
+        <Servers />
       </section>
     </div>
   );
