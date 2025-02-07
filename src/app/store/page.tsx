@@ -4,9 +4,38 @@ import { useRouter } from "next/navigation";
 import Card from "@/components/card";
 const StorePage = () => {
   const router = useRouter();
+  const backgroundImages = [
+    "vault_lab.png",
+    "tentacle.png",
+    "spawn.png",
+    "underground_base.png",
+  ];
+
+  const GenerateRandomIndex = (): number => {
+    return Math.floor(Math.random() * backgroundImages.length);
+  };
+
+  const [activeIndex, setActiveIndex] = useState(GenerateRandomIndex());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex(GenerateRandomIndex());
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="text-white">
+      {backgroundImages.map((image, index) => (
+        <img
+          key={index}
+          src={`/screenshots/${image}`}
+          className={`w-screen h-screen z-[-1] absolute transition-opacity blur-md duration-500 ${
+            activeIndex === index ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
       <h1
         className="p-4 text-3xl btn underlined"
         onClick={() => {
