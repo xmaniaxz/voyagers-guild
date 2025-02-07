@@ -1,14 +1,13 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { ID } from "node-appwrite";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Card from "@/components/card";
 import Servers from "@/components/serverpage";
 
 export default function Home() {
   const router = useRouter();
-
   const [activeIndex, setActiveIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const sections = [
     { id: "section1", label: "home" },
@@ -16,29 +15,28 @@ export default function Home() {
     { id: "section3", label: "Discord" },
     { id: "section4", label: "Servers" },
   ];
-  useEffect(() => {
-    const scrollContainer = document.querySelector(".scroll-container");
 
-    const handleScroll = () => {
-      const scrollPosition = scrollContainer?.scrollTop || 0;
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const scrollPosition = scrollContainerRef.current.scrollTop;
       const sectionHeight = window.innerHeight;
       let index = Math.round(scrollPosition / sectionHeight);
-      index = Math.max(0, Math.min(index, sections.length - 1));
+      index = Math.max(0, Math.min(index, sections.length - 1)); // Clamp index
       setActiveIndex(index);
-      //console.log("Scroll position:", scrollPosition, "Active index:", index);
-    };
+      console.log("Scroll position:", scrollPosition, "Active index:", index);
+    }
+  };
 
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
       scrollContainer.addEventListener("scroll", handleScroll);
-      //console.log("Event listener added to scroll-container");
-    }
-
-    return () => {
-      if (scrollContainer) {
+      console.log("Event listener added");
+      return () => {
         scrollContainer.removeEventListener("scroll", handleScroll);
-        //console.log("Event listener removed from scroll-container");
-      }
-    };
+        console.log("Event listener removed");
+      };
+    }
   }, []);
 
   const scrollToSection = (index: number) => {
@@ -48,13 +46,33 @@ export default function Home() {
     }
   };
 
+  const backgroundImages = [
+    "/cavern.png",
+    "/reactor.png",
+    "/mountain_house.png",
+    "village_sunset.png",
+  ];
+
   return (
-    <div className="scroll-container snap-mandatory h-screen overflow-y-scroll">
-      {activeIndex != 0 && <i className="Icon absolute bg-[#353535] p-2 text-[32px] hover:scale-[1.2] hover:bg-[#4b4b4b] rounded-[50%] bottom-[40px] right-[40] btn"
-      onClick={() => scrollToSection(0)}
+    <div
+      ref={scrollContainerRef}
+      className="scroll-container snap-mandatory h-screen overflow-y-scroll"
+    >
+      <i
+        className="Icon absolute bg-[#353535] p-2 text-[32px] hover:scale-[1.2] hover:bg-[#4b4b4b] rounded-[50%] bottom-[40px] right-[40] btn"
+        onClick={() => scrollToSection(0)}
       >
         arrow_upward
-      </i>}
+      </i>
+      {backgroundImages.map((image, index) => (
+        <img
+          key={index}
+          src={`/screenshots/${image}`}
+          className={`w-screen h-screen z-[-1] absolute transition-opacity blur-md duration-500 ${
+            activeIndex === index ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
       <div className="pagination">
         {sections.map((section, index) => (
           <div
@@ -66,14 +84,19 @@ export default function Home() {
       </div>
       <section
         id="section1"
-        className="w-screen h-16 bg-transparent p-8 text-white mt-8 flex items-center backdrop-blur-md snap-start"
+        className="w-screen h-16 bg-transparent p-8 text-white mt-8 flex items-center snap-start"
       >
         <section>
           <h1 className="text-3xl">VoyagersGuild</h1>
         </section>
       </section>
       <section className="w-screen h-[500px] mt-[20vh] center gap-[10px] px-24">
-        <Card className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center" onClick={() =>{scrollToSection(3)}}>
+        <Card
+          className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center"
+          onClick={() => {
+            scrollToSection(3);
+          }}
+        >
           Servers
         </Card>
         <Card className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center">
