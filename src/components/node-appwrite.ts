@@ -1,5 +1,5 @@
-"use server"
-import { Account, Client, Databases,Query } from "node-appwrite";
+"use server";
+import { Account, Client, Storage, Databases, Query } from "node-appwrite";
 
 const CreateAdminClient = async (): Promise<Client> => {
   const client = new Client();
@@ -17,11 +17,26 @@ async function CreateAdminAccount() {
   return account;
 }
 
-export async function RetrieveFile(databaseID: string, collectionID: string, documentID: string) {
+export async function RetrieveDatabaseEntry(
+  databaseID: string,
+  collectionID: string,
+  documentID: string
+) {
   const client = await CreateAdminClient();
   const database = new Databases(client);
-  const response = await database.getDocument(databaseID, collectionID, documentID);
+  const response = await database.getDocument(
+    databaseID,
+    collectionID,
+    documentID
+  );
   return response;
+}
+
+export async function RetrieveFile(bucketID: string, fileID: string) {
+  const client = await CreateAdminClient();
+  const storage = new Storage(client);
+  const response = await storage.getFileDownload(bucketID, fileID);
+  return { code: 200, message: response };
 }
 
 export async function LoadFromCollection(
@@ -39,5 +54,18 @@ export async function LoadFromCollection(
     };
   } catch (error) {
     return { code: 404, message: error };
+  }
+}
+
+export async function GetDownloadLink(bucketID:string,filename: string) {
+  try{
+  const client = await CreateAdminClient();
+  const storage = new Storage(client);
+  const ID = (await storage.listFiles(bucketID,[],filename)).files[0].$id;
+  const response = await storage.getFileDownload(bucketID,ID);
+  return {code:200,message:response};
+  }
+  catch(error){
+    return {code:404,message:error};
   }
 }

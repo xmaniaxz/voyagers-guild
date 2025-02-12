@@ -99,7 +99,8 @@ export default function Home() {
         >
           Servers
         </Card>
-        <Card className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center">
+        <Card className="w-1/3 h-full btn hover:scale-[1.1] hover:translate-y-[20px] text-[54px] font-bold center"
+        onClick={() => router.push("/files")}>
           Files
         </Card>
         <Card

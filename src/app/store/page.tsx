@@ -37,7 +37,7 @@ const StorePage = () => {
         />
       ))}
       <h1
-        className="p-4 text-3xl btn underlined"
+        className="p-4 text-3xl btn btn_home w-80"
         onClick={() => {
           router.push("/");
         }}

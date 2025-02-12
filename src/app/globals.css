@@ -73,6 +73,29 @@ html {
   background-color: rgba(128, 128, 128, 0.596);
 }
 
+.btn_download{
+  background-color: rgba(0, 0, 0, 0);
+  border: solid 3px white;
+  border-radius: 20px;
+  color: white;
+}
+
+.btn_download:hover{
+  background-color: rgba(117, 117, 117, 0.454);
+}
+
+.btn_home{
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 5px;
+  color: white;
+  text-align: start;
+  padding: 20px 40px;  
+  width: 100%;
+}
+.btn_home:hover{
+  background-color: rgba(0, 0, 0, 0.454);
+}
+
 .vr {
   width: 2px;
   transform: translate(0, 15%);
@@ -89,10 +112,13 @@ html {
 .btn {
   transition: all 0.3s ease;
   cursor: pointer;
+  z-index: 10;
+  position: relative;
+ 
 }
- .btn:hover {
-  z-index: 4;
- }
+.btn:hover {
+  z-index: 11;
+}
 
 
 .scroll-container {
@@ -138,10 +164,10 @@ html {
   --border-width: 5px;
   appearance: none;
   position: relative;
-  background-color: var(--background);
+  background-color: rgba(0, 0, 0, 0.61);
   border-radius: var(--border-radius);
   color: #fff;
-  z-index: 2;
+  z-index: 0;
   transition: all 0.3s ease;
 }
 .card::after {
