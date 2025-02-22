@@ -56,18 +56,18 @@ const FilePage = () => {
             <Card key={index} className="p-4">
               <h1 className="text-2xl font-bold">{file.rootfolder}</h1>
               <hr />
-              <div className="flex flex-wrap items-center">
+              <div className="flex flex-wrap gap-[10px] items-center">
                 {file.files.map((file: any, index2: number) => {
                   const fileData = JSON.parse(file);
 
                   return (
                     <div key={index2}>
-                      <div className="w-[175px] aspect-square flex-col text-center items-center justify-center">
+                      <div className="w-[175px] aspect-square  flex-col text-center items-center justify-center">
                         <i className="Icon text-[175px]">folder_zip</i>
-                        <h5 className="mt-[-30px] ">{fileData.name}</h5>
+                        <h5 className="mt-[-30px] w-inherit text-ellipsis whitespace-nowrap overflow-hidden">{fileData.name}</h5>
                       </div>
                       <button
-                        className="m-2 w-40 px-4 py-3 btn btn_download"
+                        className="m-2 w-40 px-4 py-3 relative btn btn_download"
                         onClick={() =>
                           handleDownload(fileData.name, index + index2)
                         }
