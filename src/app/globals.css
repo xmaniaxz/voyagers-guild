@@ -88,9 +88,8 @@ html {
   background-color: rgba(0, 0, 0, 0);
   border-radius: 5px;
   color: white;
-  text-align: start;
+  text-align: center;
   padding: 20px 40px;  
-  width: 100%;
 }
 .btn_home:hover{
   background-color: rgba(0, 0, 0, 0.454);
@@ -198,6 +197,7 @@ html {
   -webkit-mask-composite: destination-out;
   filter: hue-rotate(var(--hue-rotate-start));
   animation: rotate-hue linear 3s infinite;
+  pointer-events: none;
 }
 
 .card:hover::after {
@@ -222,3 +222,51 @@ html {
   background-image: conic-gradient(red, red) !important;
   animation-play-state: paused;
 }
+
+.btn_shopping:hover{
+  transform: scale(1.1);
+}
+
+.btn_shopping {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-direction: row;
+  font-size: 48px;
+  cursor: pointer;
+  /* clip-path: circle(12px at bottom 12px right 12px); */
+}
+
+/* The shopping cart icon */
+.btn_shopping .Icon {
+  font-size: 48px;
+  color: white;
+  position: relative;
+}
+
+/* Counter with cut-out effect */
+.shopping_counter {
+  position: absolute;
+  left: -42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  font-size: 28px;
+  font-weight: bold;
+  color: rgb(255, 255, 255); /* Text remains white */
+  background-color: rgba(255, 255, 255, 0); /* Counter background */
+  border: solid 3px white;
+  border-radius: 50%;
+}
+
+
+
+

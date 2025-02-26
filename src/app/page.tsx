@@ -106,12 +106,12 @@ export default function Home() {
           >
             Files
           </Card>
-          {/*<Card
+          <Card
           className="w-1/3 h-full btn text-[54px] font-bold hover:scale-[1.1] hover:translate-y-[20px]  center"
           onClick={() => router.push("/store")}
         >
           Store
-        </Card>*/}
+        </Card>
         </section>
         <section
           id="section2"
